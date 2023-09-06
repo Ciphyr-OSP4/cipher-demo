@@ -2,6 +2,7 @@
 import { ApolloServer } from '@apollo/server';
 // start up server so we can listen for requests
 import { startStandaloneServer } from '@apollo/server/standalone';
+import express from 'express'
 
 //db
 import db from './_db.js';
@@ -85,6 +86,25 @@ const resolvers = {
 };
 
 //server setup
+
+const app = express();
+
+const ciphyr = (str) => {
+  console.log('IN CIPHYR', str);
+}
+
+const myPlugin = {
+  async serverWillStart() {
+    console.log('Server starting up!');
+  },
+  // ciphyr starts here
+  async requestDidStart(requestContext) {
+    console.log('in requestDidStart');
+    ciphyr(requestContext.request.query);
+  },
+};
+
+
 const server = new ApolloServer({
   //Apollo server takes in a object with 2 props
   //typeDefs(type definitions) = descriptions of datatypes and relationship with other datatypes
@@ -93,6 +113,7 @@ const server = new ApolloServer({
   //resolvers: resolver functions determines how we responses to querys for diff data on the graph
   //Ex: games => fetch all the games with resolver function
   resolvers,
+  plugins: [myPlugin]
 });
 
 const { url } = await startStandaloneServer(server, {
