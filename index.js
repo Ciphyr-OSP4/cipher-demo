@@ -3,6 +3,7 @@ import { ApolloServer } from '@apollo/server';
 // start up server so we can listen for requests
 import { startStandaloneServer } from '@apollo/server/standalone';
 import express from 'express'
+import ciphyr from './ciphyrController.js';
 
 //db
 import db from './_db.js';
@@ -89,9 +90,7 @@ const resolvers = {
 
 const app = express();
 
-const ciphyr = (str) => {
-  console.log('IN CIPHYR', str);
-}
+
 
 const myPlugin = {
   async serverWillStart() {
@@ -100,9 +99,10 @@ const myPlugin = {
   // ciphyr starts here
   async requestDidStart(requestContext) {
     console.log('in requestDidStart');
-    ciphyr(requestContext.request.query);
+    ciphyr.convertStr(requestContext);
   },
 };
+
 
 
 const server = new ApolloServer({
