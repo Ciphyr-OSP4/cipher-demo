@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 import db from './postgreSQL.js';
-
-
-
+// require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 const ciphyr = {};
 
 
@@ -65,8 +65,9 @@ ciphyr.convertStr = async (query) => {
   result.depth = nested(queryString);
   console.log(result)
 
-  const sqlQuery = `INSERT INTO log (operation, query_name, log, raw, depth) 
-    VALUES ('${result.operation}', '${result.queryName}', '${result.queryString}', '${result.raw}', ${result.depth});`
+  const sqlQuery = `INSERT INTO log (operation, query_name, log, raw, depth, api_key) 
+    VALUES ('${result.operation}', '${result.queryName}', 
+      '${result.queryString}', '${result.raw}', '${result.depth}', '${process.env.API_KEY}');`
   try {
     const output = await db.query(sqlQuery);
     console.log(output);
@@ -76,26 +77,8 @@ ciphyr.convertStr = async (query) => {
   
 }
 
-// SQL log table:
-// id SERIAL PRIMARY KEY,
-// operation VARCHAR(255),
-// query_name VARCHAR(255),
-// log TEXT,
-// raw TEXT,
-// depth INT,
-// timestamp TIMESTAMP default NOW()
-// const DB_URI='postgres://bhszlgbk:zuzE1pauHpwZIV6iAPydMfKOhb1p8rYx@berry.db.elephantsql.com/bhszlgbk' 
-    
-    
-    
-
-
-
-  //console.log(queryObject.definitions[0].selectionSet.selections[0].selectionSet.selections[0].name);
-
-  // "query ExampleQuery {\n  reviews {\n    id\n  }\n  games {\n    id\n  }\n  authors {\n    id\n  }\n}"
-  // context = context.replace(/ /g, '');
-  //console.log(queryString.replace(/\s+/g, ''))
+// accessing queryObject
+// console.log(queryObject.definitions[0].selectionSet.selections[0].selectionSet.selections[0].name);
 
 
 export default ciphyr;
