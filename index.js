@@ -93,6 +93,7 @@ const resolvers = {
 
 const app = express();
 
+//option to make myPlugin(ciphyr plugin) stored in env file and just add it to plugin when creating a new instances of ApolloServer
 
 const myPlugin = {
   async serverWillStart() {
