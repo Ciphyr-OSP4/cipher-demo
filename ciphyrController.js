@@ -3,27 +3,18 @@ import db from './postgreSQL.js';
 // require('dotenv').config();
 import dotenv from 'dotenv';
 dotenv.config();
+
 const ciphyr = {};
 
+// class ciphyr {
+//   constructor(query)
+// };
+
+ciphyr.getStartTime = () => {
+  ciphyr.startTime = Date.now();
+}
 
 ciphyr.convertStr = async (query) => {
-
-  // const nested = (str) => {
-  //   let max = -Infinity;
-  //   let count = 0;
-  //   for(let i = 1; i < str.length-1; i++) {
-  //     if (str[i] === '{') {
-  //       count++;
-  //     } 
-  //     if (str[i] === '}') {
-  //       if (count > max) {
-  //         max = count;
-  //       }
-  //       count = 0;
-  //     }
-  //   }
-  //   return max;
-  // }
 
   const nested = (str) => {
     let max = 0;
@@ -42,7 +33,6 @@ ciphyr.convertStr = async (query) => {
 
     return max - 1;  // Subtract 1 because the outermost brackets should not be considered in the count
   }
-
 
   const queryString = query.request.query;
   // Parse the GraphQL query string into an AST
@@ -63,22 +53,29 @@ ciphyr.convertStr = async (query) => {
   result.raw = queryString;
   //depth of query
   result.depth = nested(queryString);
-  console.log(result)
+  //latency of query 
+  result.latency = Date.now() - ciphyr.startTime;
 
-  const sqlQuery = `INSERT INTO log (operation, query_name, log, raw, depth, api_key) 
+  console.log('result', result);
+
+  ciphyr.savingQuery(result);
+}
+
+ciphyr.savingQuery = async (result) => {
+  // will the user be willing to send query log to Ciphyr's database?
+  // how to connect to user's own database instead
+  const sqlQuery = `INSERT INTO log (operation, query_name, log, raw, depth, latency, api_key) 
     VALUES ('${result.operation}', '${result.queryName}', 
-      '${result.queryString}', '${result.raw}', '${result.depth}', '${process.env.API_KEY}');`
+      '${result.queryString}', '${result.raw}', '${result.depth}', '${result.latency}', '${process.env.API_KEY}');`
   try {
     const output = await db.query(sqlQuery);
     console.log(output);
   } catch(err) {
     console.log(err);
   }
-  
 }
 
 // accessing queryObject
 // console.log(queryObject.definitions[0].selectionSet.selections[0].selectionSet.selections[0].name);
-
 
 export default ciphyr;

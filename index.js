@@ -87,24 +87,30 @@ const resolvers = {
   },
 };
 
+
+
 //server setup
 
 const app = express();
-
 
 
 const myPlugin = {
   async serverWillStart() {
     console.log('Server starting up!');
   },
-  // ciphyr starts here
-  async requestDidStart(requestContext) {
-    console.log('in requestDidStart');
-    ciphyr.convertStr(requestContext);
-  },
+  // ciphyr.convertStr is used in this event to sanitize query logs and send them to DB
+  async requestDidStart() {
+    console.log('In requestDidStart');
+    ciphyr.getStartTime();
+    return {
+      async willSendResponse(requestContext) {
+        console.log('In willSendResponse')
+        ciphyr.convertStr(requestContext);
+      }
+    }
+  }
+
 };
-
-
 
 const server = new ApolloServer({
   //Apollo server takes in a object with 2 props
@@ -114,6 +120,7 @@ const server = new ApolloServer({
   //resolvers: resolver functions determines how we responses to querys for diff data on the graph
   //Ex: games => fetch all the games with resolver function
   resolvers,
+  // more than one pluging?
   plugins: [myPlugin]
 });
 
