@@ -1,0 +1,210 @@
+query ExampleQuery {
+  reviews {
+    id
+  }
+  games {
+    id
+  }
+  authors {
+    id
+  }
+}
+
+mutation DeleteMutation($id: ID!) {
+  deleteGame(id: $id) {
+      id,
+      title,
+      platform
+  }
+}
+{
+    "id": "6887"
+}
+
+query TestQuery1($gameId: ID!) {
+  game(id: $gameId) {
+    reviews {
+      author {
+        id
+        reviews {
+          id
+          author {
+            reviews {
+              content
+              game {
+                title
+                reviews {
+                  rating
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+{
+  "gameId": 1
+}
+
+mutation addMutation($game: AddGameInput!) {
+    addGame(game: $game) {
+        id,
+        title,
+        platform
+    }
+}
+{
+    "game" : {
+        "title": "A new game",
+        "platform": ["switch", "ps5"]
+    }
+}
+
+query Game1($gameId: ID!) {
+    game(id: $gameId) {
+      platform
+      reviews {
+        rating
+        game {
+          id
+          reviews {
+            rating
+            id
+            game {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+  {
+    "gameId": 1
+  }
+
+query Game2($gameId: ID!) {
+  game(id: $gameId) {
+    reviews {
+      game {
+        reviews {
+          game {
+            id
+            reviews {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}
+{
+  "gameId": 2
+}
+
+query Author1($gameId: ID!) {
+  game(id: $gameId) {
+    reviews {
+      game {
+        reviews {
+          game {
+            title
+          }
+        }
+      }
+    }
+  }
+}
+{
+  "gameId": 5
+}
+
+query Author2($reviewId: ID!) {
+  review(id: $reviewId) {
+    author {
+      id
+      name
+      reviews {
+        rating
+      }
+    }
+  }
+}
+{
+  "reviewId": 1
+}
+
+mutation AddGame($game: AddGameInput!) {
+  addGame(game: $game) {
+    id,
+    title,
+    platform
+  }
+}
+{
+  "game": {
+    "title": "RODRIGO",
+    "platform": ["OSP4", "CODESMITH"]
+  }
+}
+
+query Query {
+  games {
+    id
+    title
+    platform
+    reviews {
+      id
+      rating
+      content
+      game {
+        id
+      }
+      author {
+        name
+      }
+    }
+  }
+}
+
+query Author {
+  authors {
+    id
+    name
+    verified
+    reviews {
+      game {
+        title
+      }
+    }
+  }
+}
+
+query Games {
+  games {
+    id
+    title
+    platform
+  }
+}
+
+query Games {
+  games {
+    title
+  }
+}
+
+query Games {
+  games {
+    id
+    title
+    platform
+    reviews {
+      author {
+        id
+      }
+    }
+  }
+}

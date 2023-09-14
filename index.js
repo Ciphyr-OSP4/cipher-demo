@@ -98,6 +98,9 @@ const app = express();
 const myPlugin = {
   async serverWillStart() {
     console.log('Server starting up!');
+    // if (1 !== 2) {
+    //   return console.log('verification failed')
+    // }
   },
   // ciphyr.convertStr is used in this event to sanitize query logs and send them to DB
   async requestDidStart() {
