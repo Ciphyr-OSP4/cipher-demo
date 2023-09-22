@@ -1,0 +1,42 @@
+[
+  {
+    "name": "John Doe",
+    "verified": "false"
+  },
+  {
+    "name": "John Smith",
+    "verified": "false"
+  },
+  {
+    "name": "Luke Skywalker",
+    "verified": "false"
+  },
+  {
+    "name": "Darth Vader",
+    "verified": "true"
+  },
+  {
+    "name": "Anakin Skywalker",
+    "verified": "false"
+  },
+  {
+    "name": "Boba Fett",
+    "verified": "true"
+  },
+  {
+    "name": "Han Solo",
+    "verified": "true"
+  },
+  {
+    "name": "Count Dooku",
+    "verified": "true"
+  },
+  {
+    "name": "Rey",
+    "verified": "false"
+  },
+  {
+    "name": "Chewie",
+    "verified": "true"
+  }
+]

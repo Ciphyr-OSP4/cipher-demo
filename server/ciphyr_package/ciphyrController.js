@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 import db from './postgreSQL.js';
-// require('dotenv').config();
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -41,6 +40,14 @@ ciphyr.convertStr = async (query) => {
   const queryObject = JSON.parse(JSON.stringify(queryAST));
   const definitions = queryObject.definitions; 
   
+  console.log('request header \n', query.request.http.headers)
+  console.log('request body \n', query.request.http.body)
+  console.log('response header \n', query.response.http.headers)
+
+  // if error is defined, classify query as error query and show error message, otherwise classify as success
+  console.log('response body error\n', query.response.body.singleResult.error)
+
+
   const result = {};
   //type of query
   result.operation = definitions[0].operation;
@@ -56,9 +63,9 @@ ciphyr.convertStr = async (query) => {
   //latency of query 
   result.latency = Date.now() - ciphyr.startTime;
 
-  console.log('result', result);
+  //console.log('result', result);
 
-  ciphyr.savingQuery(result);
+  //ciphyr.savingQuery(result);
 }
 
 ciphyr.savingQuery = async (result) => {
@@ -66,10 +73,10 @@ ciphyr.savingQuery = async (result) => {
   // how to connect to user's own database instead
   const sqlQuery = `INSERT INTO log (operation, query_name, log, raw, depth, latency, api_key) 
     VALUES ('${result.operation}', '${result.queryName}', 
-      '${result.queryString}', '${result.raw}', '${result.depth}', '${result.latency}', '${process.env.API_KEY}');`
+      '${result.queryString}', '${result.raw}', '${result.depth}', '${result.latency}', '${process.env.API_KEY_2}');`
   try {
     const output = await db.query(sqlQuery);
-    console.log(output);
+    //console.log(output);
   } catch(err) {
     console.log(err);
   }

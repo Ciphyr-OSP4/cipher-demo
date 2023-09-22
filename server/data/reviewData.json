@@ -1,0 +1,55 @@
+[
+  {
+    "rating": 9,
+    "content": "Best space game!",
+    "author_id": "650ce640e9943a23b67de4d0",
+    "game_id": "650cd718907d44c9ecc74a40"
+  },
+  {
+    "rating": 10,
+    "content": "This is my favorite game.",
+    "author_id": "650ce640e9943a23b67de4d0",
+    "game_id": "650cd3ed0406427ab53bd96c"
+  },
+  {
+    "rating": 9,
+    "content": "Best western game.",
+    "author_id": "650ce640e9943a23b67de4d3",
+    "game_id": "650cd718907d44c9ecc74a42"
+  },
+  {
+    "rating": 7,
+    "content": "There are some rooms of improvement.",
+    "author_id": "650ce640e9943a23b67de4d4",
+    "game_id": "650cd718907d44c9ecc74a40"
+  },
+  {
+    "rating": 6,
+    "content": "Not my type of game.",
+    "author_id": "650ce640e9943a23b67de4d3",
+    "game_id": "650cd718907d44c9ecc74a41"
+  },
+  {
+    "rating": 8,
+    "content": "I really enjoyed this",
+    "author_id": "650ce640e9943a23b67de4d4",
+    "game_id": "650cd718907d44c9ecc74a43"
+  },{
+    "rating": 6,
+    "content": "Mediocre",
+    "author_id": "650ce640e9943a23b67de4d6",
+    "game_id": "650cd718907d44c9ecc74a41"
+  },
+  {
+    "rating": 3,
+    "content": "This should never be released",
+    "author_id": "650ce640e9943a23b67de4d5",
+    "game_id": "650cd718907d44c9ecc74a41"
+  },
+  {
+    "rating": 9,
+    "content": "Can't wait for the DLC",
+    "author_id": "650ce640e9943a23b67de4d7",
+    "game_id": "650cd718907d44c9ecc74a3f"
+  }
+]

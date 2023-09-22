@@ -1,0 +1,26 @@
+[
+  {
+    "title": "The Last of Us",
+    "Platform": ["PS3"]
+  },
+  {
+    "title": "Uncharted 4",
+    "Platform": ["PS4"]
+  },
+  {
+    "title": "Starfield",
+    "Platform": ["PC", "XSX"]
+  },
+  {
+    "title": "Fallout 4",
+    "Platform": ["PC", "XBOX ONE", "PS4"]
+  },
+  {
+    "title": "Red Dead Redemption 2",
+    "Platform": ["PC", "XBOX ONE", "PS4"]
+  },
+  {
+    "title": "Grand Theft Auto V",
+    "Platform": ["PC", "XBOX 360", "PS3"]
+  }
+]

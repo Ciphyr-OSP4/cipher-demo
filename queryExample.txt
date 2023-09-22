@@ -1,0 +1,234 @@
+//Fetch all games
+
+{
+  games {
+    id
+    title
+    platform
+  }
+}
+
+// Fetch a Specific Game by ID along with its Reviews
+
+{
+  game(id: "some_game_id") {
+    id
+    title
+    platform
+    reviews {
+      id
+      rating
+      content
+      author {
+        name
+        verified
+      }
+    }
+  }
+}
+
+// Fetch All Authors
+
+{
+  authors {
+    id
+    name
+    verified
+  }
+}
+
+// Fetch a Specific Author by ID along with their Reviews
+
+{
+  author(id: "some_author_id") {
+    id
+    name
+    verified
+    reviews {
+      id
+      rating
+      content
+      game {
+        title
+        platform
+      }
+    }
+  }
+}
+
+// Fetch All Reviews
+
+{
+  reviews {
+    id
+    rating
+    content
+    game {
+      title
+      platform
+    }
+    author {
+      name
+      verified
+    }
+  }
+}
+
+//Fetch a Specific Review by ID
+
+{
+  review(id: "some_review_id") {
+    id
+    rating
+    content
+    game {
+      title
+    }
+    author {
+      name
+    }
+  }
+}
+
+// Add, Update, and Delete a game
+
+mutation {
+  addGame(game: { title: "New Game", platform: ["PC", "PS5"] }) {
+    id
+    title
+    platform
+  }
+}
+
+mutation {
+  updateGame(id: "some_game_id", edits: { title: "Updated Game Title" }) {
+    id
+    title
+    platform
+  }
+}
+
+mutation {
+  deleteGame(id: "some_game_id") {
+    id
+    title
+  }
+}
+
+// Fetching a Specific Author's Reviews with Associated Game Titles
+
+{
+  author(id: "5f4a32c19d1d9a3d2a14a65d") {
+    name
+    reviews {
+      content
+      game {
+        title
+      }
+    }
+  }
+}
+
+// Fetching All Verified Authors
+
+{
+  authors {
+    name
+    verified
+  }
+}
+
+// Fetching a Specific Review with Author and Game Details
+
+{
+  review(id: "5f4a32c19d1d9a3d2a14a654") {
+    rating
+    content
+    author {
+      name
+      verified
+    }
+    game {
+      title
+      platform
+    }
+  }
+}
+
+// Fetching All Reviews with a Rating Above a Certain Value (e.g., 4)
+
+{
+  reviews(ratingAbove: 4) {
+    content
+    game {
+      title
+    }
+    author {
+      name
+    }
+  }
+}
+
+
+After publisher update
+
+//Fetch all games with their titles, platforms, and their associated publisher's name:
+query {
+  games {
+    title
+    platform
+    publisher {
+      name
+    }
+  }
+}
+
+//Fetch a specific game by ID, including its publisher's details:
+query {
+  game(id: "someGameId") {
+    title
+    platform
+    publisher {
+      name
+      location
+      established
+    }
+  }
+}
+
+//Fetch all publishers and the games they've published:
+query {
+  publishers {
+    name
+    games {
+      title
+      platform
+    }
+  }
+}
+
+//Fetch a specific publisher by ID and see all their games:
+query {
+  publisher(id: "somePublisherId") {
+    name
+    location
+    games {
+      title
+      platform
+    }
+  }
+}
+
+//Fetch all reviews for a game, including the game's publisher information:
+query {
+  reviews {
+    content
+    rating
+    game {
+      title
+      publisher {
+        name
+      }
+    }
+  }
+}
