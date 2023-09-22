@@ -2,7 +2,10 @@
 .DS_Store
 
 # dependencies
-node_modules/
+/node_modules
+
+# production
+/build
 
 # logs
 npm-debug.log*

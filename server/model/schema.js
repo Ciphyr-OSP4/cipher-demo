@@ -6,13 +6,14 @@
 //ID = key for data obj
 // adding a ! at the end of a value means it is required (similar to user schema require: true)
 //dont need to use commas like in an obj for each property
-export const typeDefs = `#graphql
+
+const typeDefs = `#graphql
   type Game {
     id: ID!
     title: String!
     platform: [String!]!
     reviews: [Review!]
-    
+    developer: Developer
   }
   type Review {
     id: ID!
@@ -27,17 +28,26 @@ export const typeDefs = `#graphql
     verified: Boolean!
     reviews: [Review!]
   }
+  type Developer {
+    id: ID!
+    name: String!
+    founded: String
+    headquarters: String
+    games_created: [Game!]
+  }
   type Query {
-    reviews: [Review]
+    reviews: [Review!]!
     review(id: ID!): Review
-    games: [Game]
+    games: [Game!]!
     game(id: ID!): Game
-    authors: [Author]
+    authors: [Author!]!
     author(id: ID!): Author
+    developers: [Developer!]!
+    developer(id: ID!): Developer
   }
   type Mutation {
     addGame(game: AddGameInput!): Game
-    deleteGame(id: ID!): [Game]
+    deleteGame(id: ID!): Game
     updateGame(id: ID!, edits: EditGameInput!): Game
   }
   input AddGameInput {
@@ -46,8 +56,8 @@ export const typeDefs = `#graphql
   }
   input EditGameInput {
     title: String,
-    platform: [String!]
+    platform: [String!],
   }
 `;
-// type Query = determines where users can land on in the graph
-//input = collection of fields to use in a Mutation type
+
+export default typeDefs;

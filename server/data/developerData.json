@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Naughty Dog",
+    "founded": "1984-09-27",
+    "headquarters": "Santa Monica, CA",
+    "games_created":["650cd3ed0406427ab53bd96c", "650cd718907d44c9ecc74a3f"]
+  },
+  {
+    "name": "Bethesda Softworks",
+    "founded": "1986-06-28",
+    "headquarters": "Rockville, MD",
+    "games_created":["650cd718907d44c9ecc74a40", "650cd718907d44c9ecc74a41"]
+  },
+  {
+    "name": "Rockstar Games",
+    "founded": "1998-12",
+    "headquarters": "New York, NY",
+    "games_created":["650cd718907d44c9ecc74a42", "650cd718907d44c9ecc74a43"]
+  }
+]
