@@ -17,28 +17,28 @@ import { resolvers } from './model/resolver.js'
 
 //option to make myPlugin(ciphyr plugin) stored in env file and just add it to plugin when creating a new instances of ApolloServer
 
-const myPlugin = {
-  async serverWillStart() {
-    console.log('Server starting up!');
-    // if (1 !== 2) {
-    //   return console.log('verification failed')
-    // }
-  },
-  // ciphyr.convertStr is used in this event to sanitize query logs and send them to DB
-  async requestDidStart(context) {
-    console.log('In requestDidStart');
-    ciphyr.getStartTime();
+// const myPlugin = {
+//   async serverWillStart() {
+//     console.log('Server starting up!');
+//     // if (1 !== 2) {
+//     //   return console.log('verification failed')
+//     // }
+//   },
+//   // ciphyr.convertStr is used in this event to sanitize query logs and send them to DB
+//   async requestDidStart(context) {
+//     console.log('In requestDidStart');
+//     ciphyr.getStartTime();
 
-    return {
-      async willSendResponse(requestContext) {
-        console.log('In willSendResponse')
+//     return {
+//       async willSendResponse(requestContext) {
+//         console.log('In willSendResponse')
 
-        ciphyr.convertStr(requestContext);
-      }
-    }
-  }
+//         ciphyr.convertStr(requestContext);
+//       }
+//     }
+//   }
 
-};
+// };
 
 const server = new ApolloServer({
   typeDefs,
@@ -53,7 +53,7 @@ const server = new ApolloServer({
   //   }
   // },
   // more than one pluging?
-  plugins: [myPlugin]
+  plugins: [ciphyr.myPlugin]
 });
 
 const { url } = await startStandaloneServer(server, {

@@ -45,7 +45,7 @@ ciphyr.convertStr = async (query) => {
   console.log('response header \n', query.response.http.headers)
 
   // if error is defined, classify query as error query and show error message, otherwise classify as success
-  console.log('response body error\n', query.response.body.singleResult.error)
+  console.log('response body error\n', query.response.body.singleResult.errors)
 
 
   const result = {};
@@ -82,6 +82,28 @@ ciphyr.savingQuery = async (result) => {
   }
 }
 
+ciphyr.myPlugin = {
+  async serverWillStart() {
+    console.log('Server starting up!');
+    // if (1 !== 2) {
+    //   return console.log('verification failed')
+    // }
+  },
+  // ciphyr.convertStr is used in this event to sanitize query logs and send them to DB
+  async requestDidStart(context) {
+    console.log('In requestDidStart');
+    ciphyr.getStartTime();
+
+    return {
+      async willSendResponse(requestContext) {
+        console.log('In willSendResponse')
+
+        ciphyr.convertStr(requestContext);
+      }
+    }
+  }
+
+};
 // accessing queryObject
 // console.log(queryObject.definitions[0].selectionSet.selections[0].selectionSet.selections[0].name);
 
