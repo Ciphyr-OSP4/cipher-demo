@@ -1,6 +1,8 @@
 import gql from 'graphql-tag';
 import db from './postgreSQL.js';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
 dotenv.config();
 
 const ciphyr = {};
@@ -12,6 +14,21 @@ const ciphyr = {};
 ciphyr.getStartTime = () => {
   ciphyr.startTime = Date.now();
 }
+
+// getAuthInfo need more test
+
+// ciphyr.getAuthInfo = (obj) => {
+//   const token = obj.contextValue.token
+//   // case: no Auth
+//   if (token === '') {
+//     return '';
+//   }
+
+//   // case: Bearer JWT
+//   if (token.substring(0, 6) === 'Bearer') {
+//     return jwt.verify(token, process.env.JWT_SECRET)
+//   }
+// }
 
 ciphyr.convertStr = async (query) => {
 
@@ -40,12 +57,13 @@ ciphyr.convertStr = async (query) => {
   const queryObject = JSON.parse(JSON.stringify(queryAST));
   const definitions = queryObject.definitions; 
   
-  console.log('request header \n', query.request.http.headers)
-  console.log('request body \n', query.request.http.body)
-  console.log('response header \n', query.response.http.headers)
+  console.log('Auth Info \n', ciphyr.getAuthInfo(query))
+  // console.log('request header \n', query.request.http.headers)
+  // console.log('request body \n', query.request.http.body)
+  // console.log('response header \n', query.response.http.headers)
 
-  // if error is defined, classify query as error query and show error message, otherwise classify as success
-  console.log('response body error\n', query.response.body.singleResult.errors)
+  // // if error is defined, classify query as error query and show error message, otherwise classify as success
+  // console.log('response body error\n', query.response.body.singleResult.errors)
 
 
   const result = {};
@@ -76,7 +94,7 @@ ciphyr.savingQuery = async (result) => {
       '${result.queryString}', '${result.raw}', '${result.depth}', '${result.latency}', '${process.env.API_KEY_2}');`
   try {
     const output = await db.query(sqlQuery);
-    //console.log(output);
+    console.log(output);
   } catch(err) {
     console.log(err);
   }
