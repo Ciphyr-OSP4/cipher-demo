@@ -43,7 +43,7 @@ const reviewSchema = new Schema ({
 const developerSchema = new Schema ({
   name: { type: String, required: true },
   founded: { type: String },
-  headquarters: { type: String },
+  headquarter: { type: String },
   games_created: [{
     type: Schema.Types.ObjectId,
     ref: 'Game'

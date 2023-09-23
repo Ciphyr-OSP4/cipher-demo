@@ -131,7 +131,7 @@ mutation {
 
 // Fetching All Verified Authors
 
-{
+query verifiedAuthor{
   authors {
     name
     verified
@@ -141,7 +141,7 @@ mutation {
 // Fetching a Specific Review with Author and Game Details
 
 {
-  review(id: "5f4a32c19d1d9a3d2a14a654") {
+  review(id: "650cef30067c206fcef5e68b") {
     rating
     content
     author {
@@ -170,35 +170,35 @@ mutation {
 }
 
 
-After publisher update
+After developer update
 
-//Fetch all games with their titles, platforms, and their associated publisher's name:
-query {
+//Fetch all games with their titles, platforms, and their associated developer's name:
+query getAllGames{
   games {
     title
     platform
-    publisher {
+    developer {
       name
     }
   }
 }
 
-//Fetch a specific game by ID, including its publisher's details:
+//Fetch a specific game by ID, including its developer's details:
 query {
   game(id: "someGameId") {
     title
     platform
-    publisher {
+    developer {
       name
-      location
-      established
+      founded
+      headquarters
     }
   }
 }
 
-//Fetch all publishers and the games they've published:
-query {
-  publishers {
+//Fetch all developers and the games they've developed:
+query getAllDevs{
+  developers {
     name
     games {
       title
@@ -207,11 +207,11 @@ query {
   }
 }
 
-//Fetch a specific publisher by ID and see all their games:
-query {
-  publisher(id: "somePublisherId") {
+//Fetch a specific developer by ID and see all their games:
+query getOneDev{
+  developer(id: "650f3044f56981a84dbc5275") {
     name
-    location
+    headquarter
     games {
       title
       platform
@@ -219,16 +219,24 @@ query {
   }
 }
 
-//Fetch all reviews for a game, including the game's publisher information:
-query {
+//Fetch all reviews for a game, including the game's developer information:
+query getReviewDetail{
   reviews {
     content
     rating
     game {
       title
-      publisher {
+      developer {
         name
       }
     }
   }
+}
+
+mutation {
+  updateGame(id: "650f394a606f9cf40a03355a", edits: { title: "Baldur's Gate 3", platform: ["PC"]}) 
+    {
+        title
+        platform
+    }
 }

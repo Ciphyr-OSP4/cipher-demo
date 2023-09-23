@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // change file path and db model name when inserting new data from files
-fs.readFile(path.join(__dirname, '/server/data/reviewData.json'), 'utf8', (err, data) => {
+fs.readFile(path.join(__dirname, '/server/data/developerData.json'), 'utf8', (err, data) => {
   if (err) {
       console.error('Error reading the file:', err);
       return;
@@ -16,5 +16,5 @@ fs.readFile(path.join(__dirname, '/server/data/reviewData.json'), 'utf8', (err, 
 
   const arrayData = JSON.parse(data);
 
-  db.Review.insertMany(arrayData);
+  db.Developer.insertMany(arrayData);
 });
