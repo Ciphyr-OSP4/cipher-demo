@@ -32,8 +32,8 @@ const typeDefs = `#graphql
     id: ID!
     name: String!
     founded: String
-    headquarters: String
-    games_created: [Game!]
+    headquarter: String
+    games: [Game!]
   }
   type Query {
     reviews: [Review!]!
@@ -56,7 +56,7 @@ const typeDefs = `#graphql
   }
   input EditGameInput {
     title: String,
-    platform: [String!],
+    platform: [String!]!,
   }
 `;
 

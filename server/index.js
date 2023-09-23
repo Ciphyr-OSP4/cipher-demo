@@ -7,38 +7,9 @@ import ciphyr from './ciphyr_package/ciphyrController.js';
 
 
 //types
-import { typeDefs } from '../schema.js';
+import typeDefs from './model/schema.js';
 //resolvers
-import { resolvers } from './model/resolver.js'
-
-//server setup
-
-//const app = express();
-
-//option to make myPlugin(ciphyr plugin) stored in env file and just add it to plugin when creating a new instances of ApolloServer
-
-const myPlugin = {
-  async serverWillStart() {
-    console.log('Server starting up!');
-    // if (1 !== 2) {
-    //   return console.log('verification failed')
-    // }
-  },
-  // ciphyr.convertStr is used in this event to sanitize query logs and send them to DB
-  async requestDidStart(context) {
-    console.log('In requestDidStart');
-    ciphyr.getStartTime();
-
-    return {
-      async willSendResponse(requestContext) {
-        console.log('In willSendResponse')
-
-        ciphyr.convertStr(requestContext);
-      }
-    }
-  }
-
-};
+import resolvers from './model/resolver.js'
 
 const server = new ApolloServer({
   typeDefs,
@@ -53,10 +24,21 @@ const server = new ApolloServer({
   //   }
   // },
   // more than one pluging?
-  plugins: [myPlugin]
+  plugins: [ciphyr.myPlugin]
 });
 
 const { url } = await startStandaloneServer(server, {
+  context: async ({ req, res }) => {
+    // for demo purpose, we just want to record the authentication info along with the query log
+    // there is no real authentication implemented
+
+    // Get the user token from the headers.
+    const token = req.headers.authorization || '';
+
+    // Try to retrieve a user with the token (if verification is required to send API call)
+    // const user = await getUser(token);
+    return { token };
+  },
   listen: { port: 4000 },
 });
 

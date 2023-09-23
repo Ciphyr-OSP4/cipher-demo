@@ -120,7 +120,7 @@ const resolvers = {
     },
   },
   Developer: {
-    async games_created(parent) {
+    async games(parent) {
       try {
         // Assuming the games_created field contains an array of ObjectIds referencing the Game collection.
         const developerWithGames = await db.Developer.findById(parent.id).populate('games_created').exec();
