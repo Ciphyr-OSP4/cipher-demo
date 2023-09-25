@@ -3,7 +3,7 @@ import { ApolloServer } from '@apollo/server';
 // start up server so we can listen for requests
 import { startStandaloneServer } from '@apollo/server/standalone';
 //import express from 'express'
-import ciphyr from './ciphyr_package/ciphyrController.js';
+//import ciphyr from './ciphyr_package/ciphyrController.js';
 
 
 //types
@@ -14,16 +14,7 @@ import resolvers from './model/resolver.js'
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // disable auto introspection query being sent every 2 seconds
-  // introspection: false,
-  // playground: {
-  //   settings: {
-  //     'schema.polling.enable': false, // enables automatic schema polling
-  //     'schema.polling.endpointFilter': '*localhost*', // endpoint filter for schema polling
-  //     'schema.polling.interval': 10000, // schema polling interval in ms
-  //   }
-  // },
-  // more than one pluging?
+  // supports more than one pluging
   plugins: [ciphyr.myPlugin]
 });
 
