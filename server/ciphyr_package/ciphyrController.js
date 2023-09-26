@@ -67,17 +67,17 @@ ciphyr.convertStr = async (query) => {
   // console.log('Auth Info \n', ciphyr.getAuthInfo(query))
   // console.log('request header \n', query.request.http.headers)
   // console.log('request body \n', query.request)
-  console.log('Context\n', query.contextValue)
+  //console.log('Context\n', query.contextValue)
 
   // // if error is defined, classify query as error query and show error message, otherwise classify as success
-  console.log('response body error\n', query.response.body.singleResult.errors)
+  //console.log('response body error\n', query.response.body.singleResult.errors)
 
   const result = {};  
   //type of query
   result.operation = definitions[0].operation;
   //name of query (check if name is provided)
   result.queryName = (definitions[0].name === undefined) ? '' : definitions[0].name.value;
-  console.log('Query Name', result.queryName)
+  //console.log('Query Name', result.queryName)
   //query string
   result.queryString = queryString.replace(/ /g, '').replace(/\s+/g, '')
     .replace(`${result.operation}`, '').replace(`${result.queryName}`,'');
@@ -98,7 +98,7 @@ ciphyr.convertStr = async (query) => {
 
   console.log('result', result);
 
-  //ciphyr.savingQuery(result);
+  ciphyr.savingQuery(result);
 }
 
 ciphyr.savingQuery = async (result) => {
@@ -108,7 +108,7 @@ ciphyr.savingQuery = async (result) => {
     latency, api_key, error_occured, error_code) 
     VALUES ('${result.operation}', '${result.queryName}', 
       '${result.queryString}', '${result.raw}', '${result.depth}', '${result.latency}', 
-      '${process.env.API_KEY}', '${result.error_occured}', '${result.error_code}');`
+      '${process.env.API_KEY_3}', '${result.error_occured}', '${result.error_code}');`
   try {
     const output = await db.query(sqlQuery);
     console.log(output);

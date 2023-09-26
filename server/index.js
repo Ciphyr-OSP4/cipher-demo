@@ -3,7 +3,7 @@ import { ApolloServer } from '@apollo/server';
 // start up server so we can listen for requests
 import { startStandaloneServer } from '@apollo/server/standalone';
 //import express from 'express'
-//import ciphyr from './ciphyr_package/ciphyrController.js';
+import ciphyr from './ciphyr_package/ciphyrController.js';
 
 
 //types
